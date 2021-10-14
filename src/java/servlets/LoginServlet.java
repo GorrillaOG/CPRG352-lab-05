@@ -28,7 +28,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
         HttpSession session = request.getSession();
+        
         if (request.getParameter("out") != null) {
 //
             request.getSession().invalidate();
@@ -36,16 +40,19 @@ public class LoginServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         } else {
-            if (session.getAttribute("username") != null) {
+            if (session.getAttribute("user") != null) {
 
                 response.sendRedirect("home");
+                // getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
                 return;
             } else {
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
                 return;
             }
-
+            
+            
         }
+
     }
 
     @Override
@@ -67,54 +74,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         response.sendRedirect("home");
-        
-        
-        /*  if (username != null || password != null || "".equals(username) || "".equals(password)) {
 
-            HttpSession session = request.getSession();
-
-            AccountServices acc = new AccountServices();
-            // acc.login(username, password); //null || new User(username,password)
-            User user = acc.login(username, password);
-            
-            session.setAttribute("username", user.getUsername());
-
-            if (user == null) {
-               
-                response.sendRedirect("home");
-                return;
-            }*/
- /*  } else {
-            //error msg if null
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            return;
-        }
-         */
     }
 
-}/*
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
- */
-/**
- * Handles the HTTP <code>POST</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-/*  @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
- */
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
+}
